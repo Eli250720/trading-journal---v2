@@ -1,0 +1,92 @@
+const portfolios = {
+  "Live Konto": [],
+  "Demo Konto": [],
+};
+
+document.addEventListener("DOMContentLoaded", () => {
+  initPortfolioDropdown();
+  loadMockData("Live Konto");
+  initFilters();
+});
+
+function toggleTheme() {
+  document.body.classList.toggle("light-mode");
+  document.body.classList.toggle("dark-mode");
+}
+
+function initPortfolioDropdown() {
+  const select = document.getElementById("portfolioSelect");
+  Object.keys(portfolios).forEach(name => {
+    const option = document.createElement("option");
+    option.value = name;
+    option.textContent = name;
+    select.appendChild(option);
+  });
+
+  select.addEventListener("change", (e) => {
+    loadMockData(e.target.value);
+  });
+}
+
+function loadMockData(portfolio) {
+  const data = portfolios[portfolio];
+  // Demo-Daten (hier würdest du später aus Excel oder API lesen)
+  portfolios[portfolio] = [
+    { aktie: "AAPL", strategie: "+C", monat: "06", jahr: "2025", realisiert: 200, unrealisiert: 50 },
+    { aktie: "TSLA", strategie: "-P", monat: "06", jahr: "2025", realisiert: -100, unrealisiert: -30 },
+  ];
+  renderTable(portfolios[portfolio]);
+  renderChart(portfolios[portfolio]);
+}
+
+function renderTable(data) {
+  const container = document.getElementById("journalTable");
+  const html = `
+    <table>
+      <thead>
+        <tr>
+          <th>Aktie</th><th>Strategie</th><th>Monat</th><th>Jahr</th><th>G&V Real</th><th>G&V Unreal</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${data.map(row => `
+          <tr>
+            <td>${row.aktie}</td>
+            <td>${row.strategie}</td>
+            <td>${row.monat}</td>
+            <td>${row.jahr}</td>
+            <td>${row.realisiert}</td>
+            <td>${row.unrealisiert}</td>
+          </tr>
+        `).join("")}
+      </tbody>
+    </table>`;
+  container.innerHTML = html;
+}
+
+function renderChart(data) {
+  const ctx = document.getElementById("profitChart").getContext("2d");
+  const grouped = data.reduce((acc, d) => {
+    const key = `${d.monat}/${d.jahr}`;
+    acc[key] = (acc[key] || 0) + d.realisiert;
+    return acc;
+  }, {});
+  const labels = Object.keys(grouped);
+  const values = Object.values(grouped);
+
+  new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: labels,
+      datasets: [{
+        label: "Realisierter Gewinn",
+        data: values,
+        backgroundColor: "#4caf50"
+      }]
+    }
+  });
+}
+
+function initFilters() {
+  // Optional: Filterinitialisierung folgt
+}
