@@ -1,0 +1,58 @@
+body {
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #121212;
+  color: #fff;
+  transition: background 0.3s, color 0.3s;
+}
+
+header {
+  background: #1e1e1e;
+  padding: 1em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.controls {
+  display: flex;
+  gap: 1em;
+}
+
+#filters {
+  display: flex;
+  gap: 1em;
+  padding: 1em;
+  flex-wrap: wrap;
+}
+
+#journalTable {
+  padding: 1em;
+  overflow-x: auto;
+}
+
+canvas {
+  max-width: 100%;
+}
+
+button {
+  background: #333;
+  border: none;
+  color: white;
+  padding: 0.5em;
+  cursor: pointer;
+}
+
+body.light-mode {
+  background-color: #f0f0f0;
+  color: #000;
+}
+
+body.light-mode header {
+  background: #fff;
+}
+
+body.light-mode button {
+  background: #ddd;
+}
