@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Trading Journal App</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="dark-mode">
+  <header>
+    <h1>📈 Trading Journal</h1>
+    <div class="controls">
+      <select id="portfolioSelect"></select>
+      <button onclick="toggleTheme()">🌙/☀️</button>
+    </div>
+  </header>
+
+  <main>
+    <section id="filters">
+      <input type="text" id="tickerFilter" placeholder="Aktie suchen..." />
+      <select id="strategyFilter">
+        <option value="">Alle Strategien</option>
+        <option value="+C">Long Call</option>
+        <option value="-C">Short Call</option>
+        <option value="+P">Long Put</option>
+        <option value="-P">Short Put</option>
+      </select>
+      <select id="monthFilter"></select>
+      <select id="yearFilter"></select>
+    </section>
+
+    <section id="journalTable"></section>
+    <section id="summaryCharts">
+      <canvas id="profitChart"></canvas>
+    </section>
+  </main>
+
+  <footer>
+    <p>Erstellt mit 💡 für Eli250720</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
